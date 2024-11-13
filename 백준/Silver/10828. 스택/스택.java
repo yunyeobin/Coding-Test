@@ -15,43 +15,41 @@ public class Main {
         for (int i = 0; i < N; i++) {
             String cmd = br.readLine();
 
-            //push 명령어
-            if (cmd.startsWith("push")){
-                int number = Integer.parseInt(cmd.split(" ")[1]);
-                stack.push(number);
-            }
+            // 명령어의 종류에 따라 분기
+            switch (cmd.split(" ")[0]) {
+                case "push":
+                    // "push X"에서 X 값을 추출하여 스택에 추가
+                    int value = Integer.parseInt(cmd.split(" ")[1]);
+                    stack.push(value);
+                    break;
 
-            //pop 명령어
-            else if (cmd.equals("pop")) {
-                if (stack.empty()){
-                    bw.write("-1\n");
-                }else {
-                    bw.write(stack.pop()+"\n");
-                }
-            }
+                case "pop":
+                    // 스택이 비어있으면 -1, 아니면 맨 위의 값을 꺼내고 출력
+                    if (stack.isEmpty()) {
+                        bw.write("-1\n");
+                    } else {
+                        bw.write(stack.pop() + "\n");
+                    }
+                    break;
 
-            //size 명령어
-            else if (cmd.equals("size")) {
-                bw.write(stack.size()+"\n");
-                
-            }
-            
-            //empty 명령어
-            else if (cmd.equals("empty")) {
-                if (stack.isEmpty()){
-                    bw.write("1\n");
-                }else {
-                    bw.write("0\n");
-                }
-            }
+                case "size":
+                    // 스택의 크기 출력
+                    bw.write(stack.size() + "\n");
+                    break;
 
-            //top 명령어
-            else if (cmd.equals("top")) {
-                if (stack.isEmpty()){
-                    bw.write("-1\n");
-                }else {
-                    bw.write(stack.peek() + "\n");
-                }
+                case "empty":
+                    // 스택이 비어있으면 1, 아니면 0 출력
+                    bw.write((stack.isEmpty() ? 1 : 0) + "\n");
+                    break;
+
+                case "top":
+                    // 스택이 비어있으면 -1, 아니면 맨 위의 값 출력
+                    if (stack.isEmpty()) {
+                        bw.write("-1\n");
+                    } else {
+                        bw.write(stack.peek() + "\n");
+                    }
+                    break;
             }
         }
         bw.flush();
