@@ -25,7 +25,7 @@ public class Main {
                 }
         }
         if (count < K){
-            System.out.println(0);
+            bw.write('0');
         }
         bw.flush();
         bw.close();
