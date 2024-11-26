@@ -1,39 +1,36 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Stack;
 
 public class Main {
+	
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int T = Integer.parseInt(br.readLine());
+		
+		for(int i = 0; i < T; i++) {
+			String S = br.readLine();
+			
+			//문자열의 각 자리의 값을 확인할때는 char형태로 바꿔서 확인하기 때문에 스택도 Character형으로 해준다.
+			Stack<Character> stack = new Stack<Character>();
+			
+			for(int j = 0; j < S.length(); j++) {
+				if(S.charAt(j) == '(') {
+					stack.push(S.charAt(j));
+				}else {
+					//비어있는지를 먼저 본다.
+					if(stack.empty()) {
+						stack.push(S.charAt(j));
+						break;
+					}else {
+						stack.pop();
+					}
+				}
+			}
+			if(stack.empty()) System.out.println("YES");
+			else System.out.println("NO");
+		}
+	}
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int t = sc.nextInt(); // 테스트 케이스 수 입력
-        sc.nextLine(); // 개행 문자 처리
-
-        for (int i = 0; i < t; i++) {
-            String str = sc.nextLine(); // 한 줄 전체 입력받기
-            Stack<Character> stack = new Stack<>();
-            boolean isValid = true; // VPS 여부 플래그
-
-            for (int j = 0; j < str.length(); j++) {
-                if (str.charAt(j) == '(') {
-                    stack.push('('); // 열린 괄호는 스택에 추가
-                } else {
-                    if (stack.empty()) {
-                        isValid = false; // 닫는 괄호가 나왔는데 스택이 비어 있으면 VPS 아님
-                        break;
-                    }
-                    stack.pop(); // 열린 괄호와 닫는 괄호를 짝지음
-                }
-            }
-
-            // 루프 종료 후 스택이 비어 있지 않으면 VPS가 아님
-            if (!stack.empty()) {
-                isValid = false;
-            }
-
-            // 결과 출력
-            System.out.println(isValid ? "YES" : "NO");
-        }
-
-        sc.close();
-    }
 }
