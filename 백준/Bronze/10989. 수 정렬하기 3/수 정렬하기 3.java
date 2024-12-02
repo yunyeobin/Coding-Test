@@ -1,24 +1,32 @@
 import java.io.*;
-import java.util.Arrays;
-import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-
+        
+        // 수의 개수 입력
         int N = Integer.parseInt(br.readLine());
-        int [] arrays = new int[N];
+        
+        // 계수 정렬을 위한 배열 (범위: 1 ~ 10,000)
+        int[] count = new int[10001];
+        
+        // 숫자 입력 및 카운트
         for (int i = 0; i < N; i++) {
-            arrays[i] = Integer.parseInt(br.readLine());
+            int num = Integer.parseInt(br.readLine());
+            count[num]++;
         }
-        Arrays.sort(arrays);
-        for (int i = 0; i < N; i++) {
-            bw.write(String.valueOf(arrays[i]));
-            bw.write("\n");
+        
+        // 정렬된 결과 출력
+        for (int i = 1; i <= 10000; i++) {
+            while (count[i] > 0) {
+                bw.write(i + "\n");
+                count[i]--;
+            }
         }
+        
         bw.flush();
-        bw.close();
         br.close();
+        bw.close();
     }
 }
